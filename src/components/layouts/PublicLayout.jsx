@@ -385,18 +385,22 @@ export default function PublicLayout() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-400">
+          <div className="relative border-t border-gray-200 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden">
+            {/* White brand strip background behind bottom bar */}
+            <span className="absolute inset-0 brand-strip-bg-white" aria-hidden="true"></span>
+
+            {/* Content */}
+            <p className="relative z-10 text-sm text-gray-700">
               © {new Date().getFullYear()} Swarnandhra College of Engineering and Technology. All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
-              <Link to="/privacy-policy" className="text-sm text-gray-400 hover:text-white transition-colors">
+            <div className="relative z-10 flex items-center gap-6">
+              <Link to="/privacy-policy" className="text-sm text-gray-700 hover:text-gray-900 transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-sm text-gray-400 hover:text-white transition-colors">
+              <Link to="/terms" className="text-sm text-gray-700 hover:text-gray-900 transition-colors">
                 Terms & Conditions
               </Link>
-              <Link to="/sitemap" className="text-sm text-gray-400 hover:text-white transition-colors">
+              <Link to="/sitemap" className="text-sm text-gray-700 hover:text-gray-900 transition-colors">
                 Sitemap
               </Link>
             </div>

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { ArrowRight, ChevronLeft, ChevronRight, Sparkles, Award, Users, BookOpen, TrendingUp, Globe, Microscope, Laptop, Building, Zap, GraduationCap, Target } from 'lucide-react';
+import MegaMenu from '../../components/navigation/MegaMenu';
 
 export default function HomePage() {
   const { data: sections } = useQuery({
@@ -17,6 +18,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
+      {/* Mega menu placed above Latest News */}
+      <MegaMenu />
       {/* Top Latest News Bar (above Hero) */}
       <TopNewsBar />
       {/* Hero Section with Advanced Gradients */}

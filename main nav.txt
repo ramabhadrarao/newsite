@@ -1,0 +1,312 @@
+ <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav">
+                <li class="nav-item active"> <a class="nav-link  text-white  " href="index.php">Home </a> </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   text-white dropdown-toggle" href="#" data-bs-toggle="dropdown"> About </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="profile.php"> Profile </a></li>
+                        <li><a class="dropdown-item" href="visionmission.php"> Vision, Mission</a></li>
+                        <li><a class="dropdown-item" href="foundersecretary.php"> Founder Secretary</a></li>
+                        <li><a class="dropdown-item" href="management.php"> Management </a></li>
+                        <li><a class="dropdown-item" href="principal.php"> Principal </a></li>
+                        <li><a class="dropdown-item" href="viceprincipal.php"> Vice-Principal </a></li>
+                        <li><a class="dropdown-item" href="governingbody.php"> Governing Board</a></li>
+                        <li><a class="dropdown-item" href="#"> Approval Letter &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="jntukapproval.php"> JNTUK </a></li>
+                                <li><a class="dropdown-item" href="aicteeoa.php"> AICTE </a></li>
+                                <li><a class="dropdown-item" href="/college"> College &raquo; </a>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="highereducationapproval.php"> Higher Education
+                                                Permission Letter</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="#"> Status &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="autonomus_status.php">Autonomous</a></li>
+                                <li><a class="dropdown-item" href="naac_status.php">NAAC</a></li>
+                                <li><a class="dropdown-item" href="ugc2f_status.php">UGC 2F</a></li>
+                                <li><a class="dropdown-item" href="ugc12b_status.php">UGC 12(B)</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="strategic_plan.php"> Strategic Plan </a></li>
+<!-- <li><a class="dropdown-item" href="servicerules.php"> Service Rules </a></li> -->
+                        <li><a class="dropdown-item" href="organogram.php"> Organogram </a></li>
+                        <li><a class="dropdown-item" href="bestpractices.php"> Best Practices </a></li>
+                        <li><a class="dropdown-item" href="itpolicy.php"> IT Policy </a></li>
+                        <li><a class="dropdown-item" href="maintancepolicy.php"> Maintance Policy </a></li>
+                        <li><a class="dropdown-item" href="awards.php"> Awards </a></li>
+                        <li><a class="dropdown-item" href="milestones.php"> Milestones </a></li>
+                        <li><a class="dropdown-item" href="nirfranking.php"> Rankings </a></li>
+                        <li><a class="dropdown-item" href="mous.php"> MOUs </a></li>
+                        <li><a class="dropdown-item" href="collegeundertaking.php"> College Undertaking </a></li>
+                        <li><a class="dropdown-item" href="photogallery.php"> Photo Gallery </a></li>
+                        <li><a class="dropdown-item" href="collegevideo.php"> College Video </a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Academics </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="academiccouncil.php"> Academic Council </a></li>
+                        <li><a class="dropdown-item" href="#"> Board of Studies &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="csebos.php">CSE BOS</a></li>
+                                <li><a class="dropdown-item" href="ecebos.php">ECE BOS</a></li>
+                                <li><a class="dropdown-item" href="civilbos.php">Civil BOS</a></li>
+                                <li><a class="dropdown-item" href="eeebos.php">EEE BOS</a></li>
+                                <li><a class="dropdown-item" href="mechanicalbos.php">Mechanical BOS</a></li>
+                                <li><a class="dropdown-item" href="itbos.php">IT BOS</a></li>
+                                <li><a class="dropdown-item" href="mcabos.php">MCA BOS</a></li>
+                                <li><a class="dropdown-item" href="mbabos.php">MBA BOS</a></li>
+                                <li><a class="dropdown-item" href="shbos.php">S&H BOS</a></li>
+                                <li><a class="dropdown-item" href="/previousyears">Previous Years</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="financecommittee.php"> Finance committee </a></li>
+                        
+                        
+                        <li><a class="dropdown-item" href="/curriculum"> Curriculum & Syllabus &raquo;</a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="#">UG &raquo; </a>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="r14syllabusug.php">R-14 UG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r16syllabusug.php">R-16 UG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r19syllabusug.php">R-19 UG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r20syllabusug.php">R-20 UG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r23syllabusug.php">R-23 UG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r24syllabusug.php">R-24 UG Courses</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="dropdown-item" href="#">PG &raquo; </a>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="r14syllabuspg.php">R-14 PG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r16syllabuspg.php">R-16 PG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r19syllabuspg.php">R-19 PG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r20syllabuspg.php">R-20 PG Courses</a></li>
+                                        <li><a class="dropdown-item" href="r24syllabuspg.php">R-24 PG Courses</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        
+                        <li><a class="dropdown-item" href="committees.php"> Committees </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Admissions </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"> Admission Manual &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="admissionmanual2019-20.php">A.Y 2019-20</a></li>
+                                <li><a class="dropdown-item" href="admissionmanual2020-21.php">A.Y 2020-21</a></li>
+                            </ul>
+                        </li>
+			<li><a class="dropdown-item" href="courses.php"> Courses Offered </a></li>
+<li><a class="dropdown-item" href="feestructure.php"> Fee Structure </a></li>
+                        <li><a class="dropdown-item" href="#"> Admission Procedure &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="ugadmissionproc.php">UG Admission</a></li>
+                                <li><a class="dropdown-item" href="pgadmissionproc.php">PG Admission</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="admissionanalysis.php"> Admission Analysis </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Departments </a>
+                    <ul class="dropdown-menu">
+                        
+                        <li><a class="dropdown-item" href="cseabout.php">CSE</a></li>
+                        <li><a class="dropdown-item" href="aimlabout.php">AI & ML</a></li>
+                        <li><a class="dropdown-item" href="csedsabout.php">CSE-Data Science</a></li>
+                        <li><a class="dropdown-item" href="csebsabout.php">CSE-Business Systems</a></li>
+                        <li><a class="dropdown-item" href="csecsabout.php">CSE-Cyber Security</a></li>
+                        <li><a class="dropdown-item" href="cseaidsabout.php">AI&DS</a></li>
+                        <li><a class="dropdown-item" href="civilabout.php"> Civil </a></li>
+                        <li><a class="dropdown-item" href="eceabout.php"> ECE </a></li>
+                        <li><a class="dropdown-item" href="eeeabout.php"> EEE </a></li>
+                        <li><a class="dropdown-item" href="itabout.php"> IT </a></li>
+                        <li><a class="dropdown-item" href="mechabout.php">Mechanical </a></li>
+
+                        <li><a class="dropdown-item" href="roboticsabout.php"> Robotics </a></li>
+                        <li><a class="dropdown-item" href="mbaabout.php"> MBA </a></li>
+                        <li><a class="dropdown-item" href="mcaabout.php"> MCA </a></li>
+                        <li><a class="dropdown-item" href="shabout.php"> S&H </a></li>
+                        <li><a class="dropdown-item" href="bcaabout.php"> BCA </a></li>
+                        <li><a class="dropdown-item" href="bbaabout.php"> BBA </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Research & Development </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="aboutresearch.php"> About R&D </a></li>
+                        <li><a class="dropdown-item" href="sponsoredresearch.php"> Sponsored Research </a></li>
+                        <li><a class="dropdown-item" href="researchcunsultancy.php"> Consultancy and Training Services </a></li>
+                        <li><a class="dropdown-item" href="researchpublications.php"> Publications </a></li>
+                        <li><a class="dropdown-item" href="#"> Academic Research and Research Facilities &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="cseresearch.php">CSE</a></li>
+                                <li><a class="dropdown-item" href="mechanicalresearch.php">Mechanical</a></li>
+                                <li><a class="dropdown-item" href="eceresearch.php">ECE</a></li>
+                                <li><a class="dropdown-item" href="eeeresearch.php">EEE</a></li>
+                                <li><a class="dropdown-item" href="civilresearch.php">Civil</a></li>
+                                <li><a class="dropdown-item" href="mbaresearch.php">MBA</a></li>
+                                <li><a class="dropdown-item" href="mcaresearch.php">MCA</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="researchpatents.php"> Patents</a></li>
+                        <li><a class="dropdown-item" href="researchcollabrartions.php"> Collaborations and MoUs </a></li>
+                        <li><a class="dropdown-item" href="researchpromotionpolicy.php"> Policy for Promotion of Research </a></li>
+                        <li><a class="dropdown-item" href="researchrevenuepolicy.php"> Policy on Revenue Sharing </a></li>
+                        <li><a class="dropdown-item" href="researchcentralfacility.php"> Central Facility </a></li>
+                        <li><a class="dropdown-item" href="researchstatisticaldatabase.php"> Research/Statistical Database </a></li>
+                        <li><a class="dropdown-item" href="#"> Nanotechnology Research Center &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="researchaboutnanotechnologyresearchcenter.php">About Nanotechnology Research
+                                        Center</a></li>
+                                <li><a class="dropdown-item" href="researchfacultyincentives.php">Service Charges of Facilities</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="researchstartup.php"> Start-Up </a></li>
+                        <li><a class="dropdown-item" href="researchstateofethics.php"> State code of Ethics </a></li>
+                        <li><a class="dropdown-item" href="researchvideo.php"> Nanotechnology Research Center-video</a></li>
+                        <li><a class="dropdown-item" href="researchfacultyincentives.php"> Faculty Research Incentives</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Placements </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="placementsabout.php"> About </a></li>
+                        <li><a class="dropdown-item" href="placementsmission.php"> Mission </a></li>
+                        <li><a class="dropdown-item" href="placementsfacilities.php"> Facilities </a></li>
+                        <!--<li><a class="dropdown-item" href="placementsrecruiters.php"> Recruiters </a></li>-->
+ 			<li><a class="dropdown-item" href="placements_yearwise.php"> Placement Status </a></li>
+                      
+                        <li><a class="dropdown-item" href="placementstraining.php"> Training </a></li>
+                        <li><a class="dropdown-item" href="placementsgallery.php"> Gallery </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Library </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="aboutlibrary.php"> About Library </a></li>
+                        <li><a class="dropdown-item" href="libraryinfrastructure.php"> Infrastructure </a></li>
+                        <li><a class="dropdown-item" href="libraryworkinghours.php"> Working Hours </a></li>
+                        <li><a class="dropdown-item" href="libraryrulesreg.php"> Library Rules&Regulations </a></li>
+                        <li><a class="dropdown-item" href="librarystaff.php"> Library Staff </a></li>
+                        <li><a class="dropdown-item" href="librarydigital.php"> Digital Library </a></li>
+                        <li><a class="dropdown-item" href="#"> Journal &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="libraryprintjournals.php">Print Journals List</a></li>
+                                <li><a class="dropdown-item" href="libraryboundedjournals.php">Bound volumes of Journals</a></li>
+                                <li><a class="dropdown-item" href="libraryejournals.php">E-Journals</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="librarycdlist.php"> List of CD's </a></li>
+                        <li><a class="dropdown-item" href="#"> Book &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+				<li><a class="dropdown-item" href="librarybooks.php">Books </a></li>
+                                <li><a class="dropdown-item" href="librarynewarrivals.php">New Arrivals</a></li>
+                                <li><a class="dropdown-item" href="libraryrarebooks.php">Rare Books</a></li>
+                                <li><a class="dropdown-item" href="libraryebooks.php">E-Books</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="libraryvideogallery.php"> Video Gallery </a></li>
+                        <li><a class="dropdown-item" href="http://portal.swarnandhra.ac.in:5000/" target="_blank"> Previous year Question Papers Autonomous </a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">E Subscriptions Access Links</a>
+                           <ul class="submenu submenu-left dropdown-menu">
+  			  <li><a class="dropdown-item" href="https://ieeexplore.ieee.org/Xplore/home.jsp" target="_blank">IEEE Xplore</a></li>
+   			 <li><a class="dropdown-item" href="https://link.springer.com" target="_blank">Springer Link</a></li>
+    			<li><a class="dropdown-item" href="https://www.jgateplus.com" target="_blank">J-Gate Plus</a></li>
+    			<li><a class="dropdown-item" href="http://delnet.in/index.html" target="_blank">DELNET</a></li>
+   			 <li><a class="dropdown-item" href="https://nlist.inflibnet.ac.in/" target="_blank">N-List</a></li>
+   			 <li><a class="dropdown-item" href="https://ndl.iitkgp.ac.in" target="_blank">NDL</a></li>
+			</ul>
+                        </li>
+                        <!-- <li><a class="dropdown-item" href="/e-lib"> E-Library[Intranet] </a></li> -->
+                        <li><a class="dropdown-item" href="data/librarybooksreform.pdf"> Books Requisition Form </a></li>
+                        <li><a class="dropdown-item" href="data/libfeedbackform.pdf"> FeedBack Form </a></li>
+                        
+                        <li><a class="dropdown-item" href="https://www.grammarly.com/plagiarism-checker" target="_blank"> Plagiarism Software </a></li>
+                        <!-- <li><a class="dropdown-item" href="/photogallery"> Photo Gallery </a></li> -->
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Staff </a>
+                    <ul class="dropdown-menu">
+                      
+                                                <li><a class="dropdown-item" href="teachingstaff.php"> Teaching Staff </a></li>
+
+                        <li><a class="dropdown-item" href="nonteachingstaff.php"> Non-Teaching Staff </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white   dropdown-toggle" href="#" data-bs-toggle="dropdown"> Facilities </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="atm.php"> ATM </a></li>
+                        <li><a class="dropdown-item" href="cafeteria.php"> Cafeteria </a></li>
+                        <li><a class="dropdown-item" href="wifi.php"> WIFI </a></li>
+                        <li><a class="dropdown-item" href="mediacentre.php"> Media Centre </a></li>
+                        <li><a class="dropdown-item" href="commonrooms.php"> Common Rooms </a></li>
+                        <li><a class="dropdown-item" href="smartclassrooms.php"> ICT Enabled/Smart Classrooms </a></li>
+                        <li><a class="dropdown-item" href="greeninitiatives.php"> Green Initiatives </a></li>
+                        <li><a class="dropdown-item" href="games.php"> Games and Sports </a></li>
+                        <li><a class="dropdown-item" href="languagelabs.php"> Language Laboraties </a></li>
+                        
+                        <li><a class="dropdown-item" href="waterplant.php"> RO Water Plant </a></li>
+                        <li><a class="dropdown-item" href="solarplant.php"> Solar Power Plant </a></li>
+                        <li><a class="dropdown-item" href="medicalfacility.php"> Medical Facility </a></li>
+                        <li><a class="dropdown-item" href="hostel.php"> Hostel </a></li>
+                        <li><a class="dropdown-item" href="#"> Transport &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="busroutes.php">Details of the routes of the 1st year
+                                        student Exclusive College Buses</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="#"> Safety Measures &raquo; </a>
+                            <ul class="submenu submenu-left dropdown-menu">
+                                <li><a class="dropdown-item" href="firesafety.php">Fire safety</a></li>
+                                <li><a class="dropdown-item" href="earthing.php">Earthing</a></li>
+                                <li><a class="dropdown-item" href="drivesafely.php">DRIVE SAFELY</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  text-white    dropdown-toggle" href="#" data-bs-toggle="dropdown"> Student Support </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a class="dropdown-item" href="#">Clubs & Chapters &raquo; </a>
+                            <ul class="submenu submenu-left dropdown-menu">
+                                <li><a class="dropdown-item" href="ieichapter.php">IEI Student Chapter</a></li>
+
+                                <li><a class="dropdown-item" href="ieeestudentchapter.php">IEEE Student Chapter</a></li>
+                                <li><a class="dropdown-item" href="ieeestudentbranch.php">IEEE Student Branch</a></li>
+                                <li><a class="dropdown-item" href="ietchapter.php">IET Chapter</a></li>
+                                <li><a class="dropdown-item" href="istestudent.php">ISTE Student Chapter</a></li>
+                                <li><a class="dropdown-item" href="eeeassociation.php">EEE Association</a></li>
+                                <li><a class="dropdown-item" href="civilassociation.php">Civil Association</a></li>
+                                <li><a class="dropdown-item" href="mcaassociation.php">MCA Association</a></li>
+                                <li><a class="dropdown-item" href="mathsclub.php">Maths Club</a></li>
+                                <li><a class="dropdown-item" href="ensavclub.php">Ensav Club</a></li>
+                                <li><a class="dropdown-item" href="sossc/">SOSSC Club</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="professionalchapters.php" style='white-space: normal !important;'> Professional societies </a></li>
+                        <li><a class="dropdown-item" href="#">Extra-Curricular &raquo; </a>
+                            <ul class="submenu submenu-left dropdown-menu">
+                                <li><a class="dropdown-item" href="photographyclub.php">Photography Club</a></li>
+                                <li><a class="dropdown-item" href="sportsgames.php">Sports and Games</a></li>
+                                <li><a class="dropdown-item" href="nss.php">NSS</a></li>
+                                 <li><a class="dropdown-item" href="ncc.php">NCC</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div> 
