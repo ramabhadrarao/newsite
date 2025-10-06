@@ -73,14 +73,14 @@ export default function HomePage() {
         );
       }, [sections])}
 
-      {/* Quick Links */}
-      <section className="py-10 bg-gradient-to-br from-slate-900 via-blue-900 to-sky-700 text-white">
+      {/* Featured Programmes */}
+      <section className="py-14 bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Quick Links</h2>
-            <Link to="/" className="text-white/80 hover:text-white text-sm">All Links</Link>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold">Our Featured Programmes</h2>
+            <Link to="/programmes" className="text-white/80 hover:text-white text-sm">View all programmes</Link>
           </div>
-          <QuickLinksGrid section={sections?.find((s) => s.type === 'list' && (s.name?.toLowerCase().includes('quick') || s.name?.toLowerCase().includes('links')))} />
+          <FeaturedProgrammesTicker />
         </div>
       </section>
 
@@ -88,6 +88,38 @@ export default function HomePage() {
       <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AccreditationLogosBar section={sections?.find((s) => s.type === 'list' && (s.name?.toLowerCase().includes('accredit') || s.name?.toLowerCase().includes('affiliation') || s.name?.toLowerCase().includes('partners')))} />
+        </div>
+      </section>
+
+      {/* Campus Facilities */}
+      <section className="py-14 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900">Campus Facilities</h2>
+            <p className="text-gray-600">Comprehensive infrastructure to support learning and growth</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: 'Central Library', icon: '/img/our-features/presentation-svgrepo-com.svg', desc: 'Access to journals and digital resources' },
+              { title: 'Hostels', icon: '/img/footer/Location.svg', desc: 'Separate hostels with secure environment' },
+              { title: 'Transport', icon: '/img/our-features/forklift-lifting-svgrepo-com.svg', desc: 'Connectivity across the region' },
+              { title: 'Sports & Gym', icon: '/img/our-features/binary-code-loading-symbol-svgrepo-com.svg', desc: 'Facilities for fitness and sports' },
+              { title: 'Labs & Workshops', icon: '/img/our-features/chip-microchip-svgrepo-com.svg', desc: 'Well-equipped labs for practical learning' },
+              { title: 'AICTE-IDEA Lab', icon: '/img/our-features/ai-svgrepo-com.svg', desc: 'Innovation and prototyping center' },
+              { title: 'Wi-Fi Campus', icon: '/img/our-features/computer_networking-icon.svg', desc: 'High-speed internet across campus' },
+              { title: 'Medical & Cafeteria', icon: '/img/footer/phone-icon.svg', desc: 'On-campus health and food services' },
+            ].map((f, idx) => (
+              <div key={idx} className="card hover:shadow-lg transition-shadow">
+                <div className="flex items-center gap-4">
+                  <img src={f.icon} alt={f.title} className="h-10 w-10" />
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">{f.title}</h3>
+                    <p className="text-gray-600 text-sm">{f.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -382,18 +414,99 @@ function AccreditationLogosBar({ section }) {
     ? section.content.items
     : fallbackLogos;
 
+  const [paused, setPaused] = React.useState(false);
+  const trackRef = React.useRef(null);
+
+  React.useEffect(() => {
+    let raf;
+    let x = 0;
+    const speed = 0.8; // px per frame
+    const step = () => {
+      if (!paused && trackRef.current) {
+        x -= speed;
+        const width = trackRef.current.scrollWidth / 2; // one set width
+        if (-x >= width) x = 0;
+        trackRef.current.style.transform = `translateX(${x}px)`;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [paused]);
+
+  const doubled = [...items, ...items];
+
   return (
-    <div className="rounded-2xl bg-slate-900 text-white px-6 py-4 flex items-center justify-center gap-10 flex-wrap">
-      {items.map((item, idx) => {
-        const alt = typeof item === 'string' ? item : (item.alt || item.title || 'Accreditation');
-        const src = typeof item === 'string' ? item : item.src;
-        const url = typeof item === 'string' ? '#' : (item.url || '#');
-        return (
-          <a key={idx} href={url} className="opacity-80 hover:opacity-100 transition-opacity" aria-label={alt}>
-            <img src={src} alt={alt} className="h-10 md:h-12 object-contain" />
-          </a>
-        );
-      })}
+    <div
+      className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 border border-white/10"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div ref={trackRef} className="flex items-center gap-10 px-6 py-4 will-change-transform">
+        {doubled.map((item, idx) => {
+          const alt = typeof item === 'string' ? item : (item.alt || item.title || 'Accreditation');
+          const src = typeof item === 'string' ? item : item.src;
+          const url = typeof item === 'string' ? '#' : (item.url || '#');
+          return (
+            <a key={idx} href={url} className="opacity-80 hover:opacity-100 transition-opacity" aria-label={alt}>
+              <img src={src} alt={alt} className="h-10 md:h-12 object-contain" />
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FeaturedProgrammesTicker() {
+  const items = [
+    { label: 'CSE (AI & ML)', icon: '/img/our-features/ai-ml-icon.svg', url: '/departments/cse' },
+    { label: 'Cyber Security', icon: '/img/our-features/advanced-cyber-engineering-svgrepo-com.svg', url: '/departments/cse' },
+    { label: 'Data Science', icon: '/img/our-features/artificial-intelligence-svgrepo-com.svg', url: '/departments/cse' },
+    { label: 'Robotics', icon: '/img/our-features/robotics-svgrepo-com.svg', url: '/departments/mech' },
+    { label: 'ECE', icon: '/img/our-features/electronics-and-communication-icon.svg', url: '/departments/ece' },
+    { label: 'EEE', icon: '/img/our-features/electrical-and-electronics-icon.svg', url: '/departments/eee' },
+  ];
+
+  const doubled = [...items, ...items];
+  const [paused, setPaused] = React.useState(false);
+  const trackRef = React.useRef(null);
+
+  React.useEffect(() => {
+    let raf;
+    let x = 0;
+    const speed = 1.2; // px per frame, slightly faster than logos
+    const step = () => {
+      if (!paused && trackRef.current) {
+        x -= speed;
+        const width = trackRef.current.scrollWidth / 2; // one set width
+        if (-x >= width) x = 0;
+        trackRef.current.style.transform = `translateX(${x}px)`;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [paused]);
+
+  return (
+    <div
+      className="relative overflow-hidden rounded-2xl border border-white/10"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div ref={trackRef} className="flex items-stretch gap-4 px-2 py-2 will-change-transform">
+        {doubled.map((item, idx) => (
+          <Link
+            key={`${item.label}-${idx}`}
+            to={item.url}
+            className="group min-w-[180px] md:min-w-[220px] rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 p-4 flex flex-col items-center text-center"
+          >
+            <img src={item.icon} alt={item.label} className="h-12 w-12 mb-3" />
+            <span className="text-sm font-medium">{item.label}</span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

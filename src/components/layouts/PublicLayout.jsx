@@ -41,6 +41,21 @@ export default function PublicLayout() {
 
   const navItems = (menuItems && menuItems.length > 0) ? menuItems : defaultMenu;
 
+  // Rich footer quick links inspired by the existing site
+  const footerQuickLinks = [
+    { label: 'Examination Results', url: '/examinations' },
+    { label: 'IQAC', url: '/iqac' },
+    { label: 'NIRF', url: '/nirf' },
+    { label: 'NAAC SSR', url: '/naac-ssr' },
+    { label: 'NBA Report', url: '/nba' },
+    { label: 'AICTE-IDEA Lab', url: '/aicte-idea-lab' },
+    { label: 'Alumni', url: '/alumni' },
+    { label: 'Web Mail', url: '/webmail' },
+    { label: 'Grievance', url: '/grievance' },
+    { label: 'Contact', url: '/contact' },
+    { label: 'News & Gallery', url: '/gallery' },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <header className="bg-white shadow-md sticky top-0 z-50">
@@ -133,13 +148,13 @@ export default function PublicLayout() {
             <div>
               <h3 className="text-lg font-bold mb-4">Quick Links</h3>
               <ul className="space-y-2 text-sm">
-                {navItems.map((item) => (
-                  <li key={item.id}>
+                {footerQuickLinks.map((item, idx) => (
+                  <li key={idx}>
                     <Link
                       to={item.url || '#'}
                       className="text-gray-400 hover:text-white transition-colors"
                     >
-                      {item.label}
+                      {item.label || item.title || item}
                     </Link>
                   </li>
                 ))}
