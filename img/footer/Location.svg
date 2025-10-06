@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="261" height="95.168" viewBox="0 0 261 95.168">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d8e0f2;
+        font-size: 16px;
+        font-family: Poppins-Regular, Poppins;
+        letter-spacing: 0.015em;
+      }
+
+      .cls-2 {
+        fill: #728dc4;
+      }
+    </style>
+  </defs>
+  <g id="Location" transform="translate(-792 -1719.832)">
+    <text id="Seetharampuram_Narasapur_Andhra_Pradesh_534280_India." data-name="Seetharampuram, 
+Narasapur,
+Andhra Pradesh 534280, 
+India." class="cls-1" transform="translate(848 1740)"><tspan x="0" y="0">Seetharampuram, </tspan><tspan x="0" y="23">Narasapur,</tspan><tspan x="0" y="46">Andhra Pradesh 534280, </tspan><tspan x="0" y="69">India.</tspan></text>
+    <path id="location-icon" class="cls-2" d="M23.5,3a13,13,0,0,0-13,13c0,10.111,13,27.444,13,27.444S36.5,26.111,36.5,16A13,13,0,0,0,23.5,3Zm0,17.234A4.234,4.234,0,1,1,27.734,16,4.234,4.234,0,0,1,23.5,20.234Z" transform="translate(781.5 1716.832)"/>
+  </g>
+</svg>
