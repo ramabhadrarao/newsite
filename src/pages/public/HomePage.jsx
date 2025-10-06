@@ -20,39 +20,76 @@ export default function HomePage() {
     <div>
       {useMemo(() => {
         const heroSection = sections?.find((s) => s.type === 'hero');
-        if (heroSection) {
-          return <HeroSlider section={heroSection} />;
-        }
+        const newsSection = sections?.find(
+          (s) => s.type === 'list' && (s.name?.toLowerCase().includes('news') || s.name?.toLowerCase().includes('updates'))
+        );
+        const quickLinksSection = sections?.find(
+          (s) => s.type === 'list' && (s.name?.toLowerCase().includes('quick') || s.name?.toLowerCase().includes('links'))
+        );
+        const accredSection = sections?.find(
+          (s) => s.type === 'list' && (s.name?.toLowerCase().includes('accredit') || s.name?.toLowerCase().includes('affiliation') || s.name?.toLowerCase().includes('partners'))
+        );
+
         return (
-          <section className="bg-gradient-to-br from-primary-900 to-primary-700 text-white py-20">
+          <section className="py-4">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                  Welcome to Swarnandhra College
-                </h1>
-                <p className="text-xl md:text-2xl mb-8 text-primary-100">
-                  Shaping Future Engineers & Technologists
-                </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <Link
-                    to="/admissions"
-                    className="inline-flex items-center px-6 py-3 bg-white text-primary-900 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
-                  >
-                    Apply Now
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                  <Link
-                    to="/about"
-                    className="inline-flex items-center px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-900 transition-colors"
-                  >
-                    Learn More
-                  </Link>
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <div className="lg:col-span-3">
+                  {heroSection ? (
+                    <HeroSlider section={heroSection} />
+                  ) : (
+                    <div className="relative h-[50vh] md:h-[60vh] lg:h-[65vh] overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-sky-700 text-white rounded-2xl">
+                      <div className="absolute inset-0 bg-black/20" />
+                      <div className="relative z-10 h-full flex items-center justify-center px-6 text-center">
+                        <div>
+                          <h1 className="text-4xl md:text-6xl font-bold mb-6">Welcome to Swarnandhra College</h1>
+                          <p className="text-xl md:text-2xl mb-8 text-primary-100">Shaping Future Engineers & Technologists</p>
+                          <div className="flex flex-wrap justify-center gap-4">
+                            <Link
+                              to="/admissions"
+                              className="inline-flex items-center px-6 py-3 bg-white text-primary-900 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+                            >
+                              Apply Now
+                              <ArrowRight className="ml-2 h-5 w-5" />
+                            </Link>
+                            <Link
+                              to="/about"
+                              className="inline-flex items-center px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-900 transition-colors"
+                            >
+                              Learn More
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="lg:col-span-1">
+                  <NewsScroll section={newsSection} />
                 </div>
               </div>
             </div>
           </section>
         );
       }, [sections])}
+
+      {/* Quick Links */}
+      <section className="py-10 bg-gradient-to-br from-slate-900 via-blue-900 to-sky-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">Quick Links</h2>
+            <Link to="/" className="text-white/80 hover:text-white text-sm">All Links</Link>
+          </div>
+          <QuickLinksGrid section={sections?.find((s) => s.type === 'list' && (s.name?.toLowerCase().includes('quick') || s.name?.toLowerCase().includes('links')))} />
+        </div>
+      </section>
+
+      {/* Accreditation / Affiliations */}
+      <section className="py-8 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AccreditationLogosBar section={sections?.find((s) => s.type === 'list' && (s.name?.toLowerCase().includes('accredit') || s.name?.toLowerCase().includes('affiliation') || s.name?.toLowerCase().includes('partners')))} />
+        </div>
+      </section>
 
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -161,15 +198,16 @@ function HeroSlider({ section }) {
   const goNext = () => setIndex((prev) => (prev + 1) % slides.length);
 
   return (
-    <section className="relative h-[60vh] md:h-[80vh] overflow-hidden">
+    <section className="relative h-[50vh] md:h-[60vh] lg:h-[65vh] overflow-hidden">
       <video
         src={videoUrl}
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-center"
       />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/15 to-transparent pointer-events-none" />
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
 
@@ -237,5 +275,125 @@ function HeroSlider({ section }) {
         </div>
       )}
     </section>
+  );
+}
+
+function NewsScroll({ section }) {
+  const fallbackItems = [
+    { title: 'Admissions open for 2025-26', url: '/admissions' },
+    { title: 'Campus placements excel in 2024', url: '/placements' },
+    { title: 'International conference on AI & ML', url: '/events/ai-ml-conference' },
+    { title: 'Hackathon winners announced', url: '/news/hackathon-2024' },
+    { title: 'NAAC A Grade accreditation retained', url: '/about/accreditations' },
+    { title: 'New research lab inaugurated', url: '/research/labs/new' },
+  ];
+
+  const items = Array.isArray(section?.content?.items) && section?.content?.items.length
+    ? section.content.items
+    : fallbackItems;
+
+  const [offset, setOffset] = useState(0);
+  useEffect(() => {
+    if (!items.length) return;
+    const timer = setInterval(() => {
+      setOffset((prev) => (prev + 1) % items.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [items.length]);
+
+  const visibleCount = 6;
+  const visible = Array.from({ length: Math.min(visibleCount, items.length) }, (_, i) => items[(offset + i) % items.length]);
+
+  return (
+    <aside className="h-[50vh] md:h-[60vh] lg:h-[65vh] bg-white rounded-2xl border shadow-sm flex flex-col overflow-hidden">
+      <div className="px-4 py-3 border-b bg-gray-50 flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-gray-900">News & Updates</h3>
+        <Link to="/news" className="text-xs text-primary-700 hover:text-primary-900 font-medium">View all</Link>
+      </div>
+      <div className="flex-1 overflow-hidden">
+        <ul className="divide-y">
+          {visible.map((item, idx) => {
+            const label = typeof item === 'string' ? item : item.title;
+            const url = typeof item === 'string' ? '#' : (item.url || '#');
+            return (
+              <li key={idx} className="hover:bg-gray-50 transition-colors">
+                <Link to={url} className="block px-4 py-3">
+                  <p className="text-sm text-gray-800 line-clamp-2">{label}</p>
+                </Link>
+              </li>
+            );
+          })}
+          {items.length === 0 && (
+            <li className="px-4 py-6 text-sm text-gray-500">No news available.</li>
+          )}
+        </ul>
+      </div>
+    </aside>
+  );
+}
+
+function QuickLinksGrid({ section }) {
+  const fallback = [
+    { label: 'Examination Results', url: '/examinations' },
+    { label: 'IQAC', url: '/iqac' },
+    { label: 'NIRF', url: '/nirf' },
+    { label: 'NAAC SSR', url: '/naac-ssr' },
+    { label: 'NBA Report', url: '/nba' },
+    { label: 'AICTE-IDEA Lab', url: '/aicte-idea-lab' },
+    { label: 'Alumni', url: '/alumni' },
+    { label: 'Web Mail', url: '/webmail' },
+    { label: 'Grievance', url: '/grievance' },
+    { label: 'Contact', url: '/contact' },
+    { label: 'News & Gallery', url: '/gallery' },
+  ];
+
+  const items = Array.isArray(section?.content?.items) && section?.content?.items.length
+    ? section.content.items
+    : fallback;
+
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      {items.map((item, idx) => {
+        const label = typeof item === 'string' ? item : item.label || item.title;
+        const url = typeof item === 'string' ? '#' : (item.url || '#');
+        return (
+          <Link
+            key={idx}
+            to={url}
+            className="group rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 px-4 py-3 flex items-center justify-between"
+          >
+            <span className="text-sm font-medium">{label}</span>
+            <ArrowRight className="h-4 w-4 text-white/70 group-hover:text-white transition-colors" />
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
+
+function AccreditationLogosBar({ section }) {
+  const fallbackLogos = [
+    { alt: 'NAAC A Grade', src: '/img/footer/NAAC-A-grade-logo.webp', url: '#' },
+    { alt: 'NBA Accredited', src: '/img/footer/nba-logo-white.png', url: '#' },
+    { alt: 'Affiliated to JNTUK', src: '/img/footer/jntuk-logo-White.png', url: '#' },
+  ];
+
+  const items = Array.isArray(section?.content?.items) && section?.content?.items.length
+    ? section.content.items
+    : fallbackLogos;
+
+  return (
+    <div className="rounded-2xl bg-slate-900 text-white px-6 py-4 flex items-center justify-center gap-10 flex-wrap">
+      {items.map((item, idx) => {
+        const alt = typeof item === 'string' ? item : (item.alt || item.title || 'Accreditation');
+        const src = typeof item === 'string' ? item : item.src;
+        const url = typeof item === 'string' ? '#' : (item.url || '#');
+        return (
+          <a key={idx} href={url} className="opacity-80 hover:opacity-100 transition-opacity" aria-label={alt}>
+            <img src={src} alt={alt} className="h-10 md:h-12 object-contain" />
+          </a>
+        );
+      })}
+    </div>
   );
 }
