@@ -29,6 +29,18 @@ export default function PublicLayout() {
     },
   });
 
+  // Fallback default menu when no main-menu is configured yet
+  const defaultMenu = [
+    { id: 'default-1', label: 'Home', url: '/' },
+    { id: 'default-2', label: 'About', url: '/about' },
+    { id: 'default-3', label: 'Admissions', url: '/admissions' },
+    { id: 'default-4', label: 'Departments', url: '/departments' },
+    { id: 'default-5', label: 'Placements', url: '/placements' },
+    { id: 'default-6', label: 'Contact', url: '/contact' },
+  ];
+
+  const navItems = (menuItems && menuItems.length > 0) ? menuItems : defaultMenu;
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <header className="bg-white shadow-md sticky top-0 z-50">
@@ -60,7 +72,7 @@ export default function PublicLayout() {
             </Link>
 
             <nav className="hidden md:flex space-x-6">
-              {menuItems?.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.url || '#'}
@@ -86,7 +98,7 @@ export default function PublicLayout() {
           {mobileMenuOpen && (
             <div className="md:hidden py-4 border-t">
               <nav className="flex flex-col space-y-2">
-                {menuItems?.map((item) => (
+                {navItems.map((item) => (
                   <Link
                     key={item.id}
                     to={item.url || '#'}
@@ -121,7 +133,7 @@ export default function PublicLayout() {
             <div>
               <h3 className="text-lg font-bold mb-4">Quick Links</h3>
               <ul className="space-y-2 text-sm">
-                {menuItems?.map((item) => (
+                {navItems.map((item) => (
                   <li key={item.id}>
                     <Link
                       to={item.url || '#'}
