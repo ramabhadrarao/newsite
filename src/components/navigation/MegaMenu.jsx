@@ -122,13 +122,13 @@ export default function MegaMenu() {
 
   return (
     <div
-      className="relative z-30 border-b border-gray-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-sm"
+      className="sticky top-20 z-40 border-b border-gray-200 bg-white backdrop-blur-md supports-[backdrop-filter]:bg-white shadow-md"
       onMouseLeave={() => setActive(null)}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Triggers */}
-        <div className="flex items-center justify-between py-2">
-          <nav className="hidden md:flex flex-wrap items-center gap-1">
+        <div className="flex items-center justify-center py-2">
+          <nav className="hidden md:flex flex-wrap items-center justify-center gap-1">
             {categories.map((c) => {
               const isActive = active === c.key;
               return (
@@ -151,6 +151,28 @@ export default function MegaMenu() {
               );
             })}
           </nav>
+          {/* Mobile category row */}
+          <div className="md:hidden w-full">
+            <div className="flex items-center gap-1 overflow-x-auto px-2 py-1">
+              {categories.map((c) => {
+                const isActive = active === c.key;
+                return (
+                  <button
+                    key={c.key}
+                    onClick={() => setActive(isActive ? null : c.key)}
+                    aria-expanded={isActive}
+                    className={`shrink-0 h-9 px-3 text-sm rounded-md border transition-colors ${
+                      isActive
+                        ? 'text-gray-900 bg-black/5 border-gray-300'
+                        : 'text-gray-800 border-transparent hover:bg-black/5 hover:text-gray-900'
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
