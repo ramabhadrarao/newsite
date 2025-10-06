@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Menu, X } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 
 export default function PublicLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,10 +10,7 @@ export default function PublicLayout() {
   const { data: settings } = useQuery({
     queryKey: ['settings'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('settings')
-        .select('*');
-      if (error) throw error;
+      const data = await api.get('/settings');
       return data.reduce((acc, item) => {
         acc[item.key] = item.value?.value || item.value;
         return acc;
@@ -24,23 +21,11 @@ export default function PublicLayout() {
   const { data: menuItems } = useQuery({
     queryKey: ['menu', 'main-menu'],
     queryFn: async () => {
-      const { data: menu } = await supabase
-        .from('menus')
-        .select('id')
-        .eq('name', 'main-menu')
-        .maybeSingle();
+      const menu = await api.get('/menus?name=main-menu');
 
       if (!menu) return [];
-
-      const { data, error } = await supabase
-        .from('menu_items')
-        .select('*')
-        .eq('menu_id', menu.id)
-        .is('parent_id', null)
-        .order('sort_order');
-
-      if (error) throw error;
-      return data || [];
+      const items = await api.get(`/menu-items?menu_id=${menu.id}&parent_id=null`);
+      return items || [];
     },
   });
 

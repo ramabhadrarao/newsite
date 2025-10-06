@@ -1,17 +1,13 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { Upload, FileText, Image as ImageIcon } from 'lucide-react';
 
 export default function MediaManager() {
   const { data: media } = useQuery({
     queryKey: ['media'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('media')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (error) throw error;
+      const data = await api.get('/media');
       return data || [];
     },
   });
@@ -36,7 +32,7 @@ export default function MediaManager() {
           <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600 mb-4">Media upload functionality</p>
           <p className="text-sm text-gray-500">
-            File uploads can be implemented using Supabase Storage
+            File uploads will be implemented in a future update.
           </p>
         </div>
       </div>

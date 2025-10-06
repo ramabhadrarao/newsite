@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { Plus, CreditCard as Edit, Trash2, Eye, EyeOff } from 'lucide-react';
 
 export default function PagesManager() {
@@ -10,20 +10,14 @@ export default function PagesManager() {
   const { data: pages, isLoading } = useQuery({
     queryKey: ['pages'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('pages')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
+      const data = await api.get('/pages');
       return data || [];
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
-      const { error } = await supabase.from('pages').delete().eq('id', id);
-      if (error) throw error;
+      await api.delete(`/pages/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['pages']);

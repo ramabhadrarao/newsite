@@ -1,30 +1,18 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const { data: sections } = useQuery({
     queryKey: ['sections', 'home'],
     queryFn: async () => {
-      const { data: homePage } = await supabase
-        .from('pages')
-        .select('id')
-        .eq('slug', 'home')
-        .maybeSingle();
+      const homePage = await api.get('/pages/slug/home');
 
       if (!homePage) return [];
-
-      const { data, error } = await supabase
-        .from('sections')
-        .select('*')
-        .eq('page_id', homePage.id)
-        .eq('is_active', true)
-        .order('sort_order');
-
-      if (error) throw error;
-      return data || [];
+      const items = await api.get(`/sections/by-page/${homePage.id}`);
+      return items || [];
     },
   });
 

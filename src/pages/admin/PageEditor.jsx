@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { useAuthStore } from '../../stores/authStore';
 import { Save, ArrowLeft } from 'lucide-react';
 
@@ -29,13 +29,7 @@ export default function PageEditor() {
     queryKey: ['page', id],
     queryFn: async () => {
       if (!id) return null;
-      const { data, error } = await supabase
-        .from('pages')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle();
-
-      if (error) throw error;
+      const data = await api.get(`/pages/${id}`);
       return data;
     },
     enabled: isEditing,
@@ -69,15 +63,9 @@ export default function PageEditor() {
       };
 
       if (isEditing) {
-        const { error } = await supabase
-          .from('pages')
-          .update(pageData)
-          .eq('id', id);
-        if (error) throw error;
+        await api.put(`/pages/${id}`, pageData);
       } else {
-        pageData.created_by = user.id;
-        const { error } = await supabase.from('pages').insert([pageData]);
-        if (error) throw error;
+        await api.post('/pages', pageData);
       }
     },
     onSuccess: () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { FileText, Menu, LayoutGrid as Layout, Image } from 'lucide-react';
 
 export default function Dashboard() {
@@ -9,17 +9,17 @@ export default function Dashboard() {
     queryKey: ['dashboard-stats'],
     queryFn: async () => {
       const [pages, menus, sections, media] = await Promise.all([
-        supabase.from('pages').select('id', { count: 'exact', head: true }),
-        supabase.from('menus').select('id', { count: 'exact', head: true }),
-        supabase.from('sections').select('id', { count: 'exact', head: true }),
-        supabase.from('media').select('id', { count: 'exact', head: true }),
+        api.get('/pages'),
+        api.get('/menus'),
+        api.get('/sections'),
+        api.get('/media'),
       ]);
 
       return {
-        pages: pages.count || 0,
-        menus: menus.count || 0,
-        sections: sections.count || 0,
-        media: media.count || 0,
+        pages: pages.length || 0,
+        menus: menus.length || 0,
+        sections: sections.length || 0,
+        media: media.length || 0,
       };
     },
   });

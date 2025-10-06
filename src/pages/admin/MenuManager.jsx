@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { Plus, CreditCard as Edit, Trash2, GripVertical, ChevronRight } from 'lucide-react';
 
 export default function MenuManager() {
@@ -11,8 +11,7 @@ export default function MenuManager() {
   const { data: menus } = useQuery({
     queryKey: ['menus'],
     queryFn: async () => {
-      const { data, error } = await supabase.from('menus').select('*').order('name');
-      if (error) throw error;
+      const data = await api.get('/menus');
       return data || [];
     },
   });
@@ -21,12 +20,7 @@ export default function MenuManager() {
     queryKey: ['menu-items', selectedMenu],
     queryFn: async () => {
       if (!selectedMenu) return [];
-      const { data, error } = await supabase
-        .from('menu_items')
-        .select('*')
-        .eq('menu_id', selectedMenu)
-        .order('sort_order');
-      if (error) throw error;
+      const data = await api.get(`/menu-items?menu_id=${selectedMenu}`);
       return data || [];
     },
     enabled: !!selectedMenu,
@@ -35,20 +29,14 @@ export default function MenuManager() {
   const { data: pages } = useQuery({
     queryKey: ['pages-list'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('pages')
-        .select('id, title, slug')
-        .eq('status', 'published')
-        .order('title');
-      if (error) throw error;
-      return data || [];
+      const data = await api.get('/pages');
+      return (data || []).filter((p) => p.status === 'published');
     },
   });
 
   const createMenuMutation = useMutation({
     mutationFn: async (menuData) => {
-      const { error } = await supabase.from('menus').insert([menuData]);
-      if (error) throw error;
+      await api.post('/menus', menuData);
     },
     onSuccess: () => queryClient.invalidateQueries(['menus']),
   });

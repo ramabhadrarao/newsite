@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { Save } from 'lucide-react';
 
 export default function SettingsManager() {
@@ -10,8 +10,7 @@ export default function SettingsManager() {
   const { data: settings } = useQuery({
     queryKey: ['all-settings'],
     queryFn: async () => {
-      const { data, error } = await supabase.from('settings').select('*').order('group');
-      if (error) throw error;
+      const data = await api.get('/settings');
       return data || [];
     },
   });
@@ -30,17 +29,15 @@ export default function SettingsManager() {
 
   const saveMutation = useMutation({
     mutationFn: async (data) => {
-      const updates = Object.entries(data).map(([key, value]) => ({
-        key,
-        value: { value },
-        updated_at: new Date().toISOString(),
-      }));
-
-      for (const update of updates) {
-        const { error } = await supabase
-          .from('settings')
-          .upsert(update, { onConflict: 'key' });
-        if (error) throw error;
+      const current = settings || [];
+      for (const [key, rawValue] of Object.entries(data)) {
+        const existing = current.find((s) => s.key === key);
+        const value = rawValue;
+        if (existing) {
+          await api.put(`/settings/${existing.id}`, { value });
+        } else {
+          await api.post('/settings', { key, value, group: 'general' });
+        }
       }
     },
     onSuccess: () => {

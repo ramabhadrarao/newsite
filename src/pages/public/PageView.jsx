@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 
 export default function PageView() {
   const { slug } = useParams();
@@ -9,14 +9,7 @@ export default function PageView() {
   const { data: page, isLoading } = useQuery({
     queryKey: ['page', slug],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('pages')
-        .select('*')
-        .eq('slug', slug)
-        .eq('status', 'published')
-        .maybeSingle();
-
-      if (error) throw error;
+      const data = await api.get(`/pages/slug/${slug}`);
       return data;
     },
   });
@@ -25,16 +18,8 @@ export default function PageView() {
     queryKey: ['sections', page?.id],
     queryFn: async () => {
       if (!page?.id) return [];
-
-      const { data, error } = await supabase
-        .from('sections')
-        .select('*')
-        .eq('page_id', page.id)
-        .eq('is_active', true)
-        .order('sort_order');
-
-      if (error) throw error;
-      return data || [];
+      const items = await api.get(`/sections/by-page/${page.id}`);
+      return items || [];
     },
     enabled: !!page?.id,
   });

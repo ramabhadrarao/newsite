@@ -1,47 +1,37 @@
 import { create } from 'zustand';
-import { supabase } from '../lib/supabase';
+import { api } from '../lib/api';
 
 export const useAuthStore = create((set) => ({
   user: null,
-  session: null,
   loading: true,
 
   setUser: (user) => set({ user }),
-  setSession: (session) => set({ session }),
   setLoading: (loading) => set({ loading }),
 
   initialize: async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    set({ session, user: session?.user ?? null, loading: false });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      (() => {
-        set({ session, user: session?.user ?? null });
-      })();
-    });
+    try {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || 'null');
+      set({ user: token ? user || { id: 'unknown', email: user?.email } : null, loading: false });
+    } catch {
+      set({ user: null, loading: false });
+    }
   },
 
   signIn: async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw error;
-    return data;
+    const data = await api.post('/auth/login', { email, password });
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    set({ user: data.user });
   },
 
-  signUp: async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) throw error;
-    return data;
+  signUp: async () => {
+    throw new Error('Sign up is disabled. Use admin seeding.');
   },
 
   signOut: async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    set({ user: null, session: null });
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    set({ user: null });
   },
 }));

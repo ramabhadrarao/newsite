@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { Plus, CreditCard as Edit, Trash2, Eye, EyeOff } from 'lucide-react';
 
 export default function SectionsManager() {
@@ -10,11 +10,7 @@ export default function SectionsManager() {
   const { data: sections } = useQuery({
     queryKey: ['all-sections'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('sections')
-        .select('*, pages(title, slug)')
-        .order('created_at', { ascending: false });
-      if (error) throw error;
+      const data = await api.get('/sections');
       return data || [];
     },
   });
@@ -22,19 +18,14 @@ export default function SectionsManager() {
   const { data: pages } = useQuery({
     queryKey: ['pages-list'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('pages')
-        .select('id, title, slug')
-        .order('title');
-      if (error) throw error;
+      const data = await api.get('/pages');
       return data || [];
     },
   });
 
   const createMutation = useMutation({
     mutationFn: async (sectionData) => {
-      const { error } = await supabase.from('sections').insert([sectionData]);
-      if (error) throw error;
+      await api.post('/sections', sectionData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['all-sections']);
@@ -44,8 +35,7 @@ export default function SectionsManager() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, ...data }) => {
-      const { error } = await supabase.from('sections').update(data).eq('id', id);
-      if (error) throw error;
+      await api.put(`/sections/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['all-sections']);
@@ -55,8 +45,7 @@ export default function SectionsManager() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
-      const { error } = await supabase.from('sections').delete().eq('id', id);
-      if (error) throw error;
+      await api.delete(`/sections/${id}`);
     },
     onSuccess: () => queryClient.invalidateQueries(['all-sections']),
   });
@@ -131,9 +120,9 @@ export default function SectionsManager() {
                         <EyeOff className="h-4 w-4 text-gray-400" />
                       )}
                     </div>
-                    {section.pages && (
+                    {section.page_id && (
                       <p className="text-sm text-gray-600 mt-1">
-                        Page: {section.pages.title}
+                        Page: {section.page_id.title}
                       </p>
                     )}
                   </div>
