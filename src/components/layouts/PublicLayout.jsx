@@ -70,32 +70,33 @@ export default function PublicLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Top Bar */}
-      <div className="bg-theme-gradient text-white py-2 px-4 text-sm">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div className="relative text-gray-800 py-2 px-4 text-sm">
+        <span className="brand-strip-bg-white absolute inset-0"></span>
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-6">
-            <a href="tel:+91-1234567890" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+            <a href="tel:+91-1234567890" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
               <Phone className="w-3 h-3" />
               <span className="hidden sm:inline">+91-1234567890</span>
             </a>
-            <a href="mailto:info@swarnandhra.ac.in" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+            <a href="mailto:info@swarnandhra.ac.in" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
               <Mail className="w-3 h-3" />
               <span className="hidden sm:inline">info@swarnandhra.ac.in</span>
             </a>
           </div>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-blue-300 transition-colors">
+            <a href="#" className="hover:text-blue-600 transition-colors">
               <Facebook className="w-4 h-4" />
             </a>
-            <a href="#" className="hover:text-blue-300 transition-colors">
+            <a href="#" className="hover:text-blue-600 transition-colors">
               <Twitter className="w-4 h-4" />
             </a>
-            <a href="#" className="hover:text-blue-300 transition-colors">
+            <a href="#" className="hover:text-blue-600 transition-colors">
               <Linkedin className="w-4 h-4" />
             </a>
-            <a href="#" className="hover:text-blue-300 transition-colors">
+            <a href="#" className="hover:text-blue-600 transition-colors">
               <Instagram className="w-4 h-4" />
             </a>
-            <a href="#" className="hover:text-blue-300 transition-colors">
+            <a href="#" className="hover:text-blue-600 transition-colors">
               <Youtube className="w-4 h-4" />
             </a>
             {/* Theme Palette Selector */}
@@ -111,7 +112,7 @@ export default function PublicLayout() {
                   key={p.name}
                   onClick={() => applyTheme(p.name)}
                   aria-label={`Switch to ${p.name} theme`}
-                  className={`w-6 h-6 rounded-full border-2 ${theme===p.name ? 'border-white' : 'border-white/50'} overflow-hidden shadow hover:scale-110 transition-transform`}
+                  className={`w-6 h-6 rounded-full border-2 ${theme===p.name ? 'border-gray-900' : 'border-gray-400'} overflow-hidden shadow hover:scale-110 transition-transform`}
                   style={{
                     backgroundImage: `linear-gradient(135deg, ${p.colors[0]}, ${p.colors[1]}, ${p.colors[2]})`
                   }}
@@ -144,53 +145,51 @@ export default function PublicLayout() {
       </div>
 
       {/* Main Header */}
-      <header className={`sticky top-0 z-50 bg-theme-gradient transition-all duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className={`relative sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
+        <span className="brand-strip-bg-white absolute inset-0"></span>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-4 group">
-              <div className="relative">
+            {/* Logo with themed strip background */}
+            <Link to="/" className="relative flex items-center gap-2 md:gap-4 group px-3 py-2 rounded-xl">
+              <div className="relative z-10">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity"></div>
                 <img
                   src="/img/logo/swrnlogo.png"
                   alt="Logo"
-                  className="relative h-14 w-auto transition-transform duration-300 group-hover:scale-110"
+                  className="relative h-12 md:h-14 w-auto transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
-              <div className="hidden md:flex flex-col">
-                <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+              <div className="relative z-10 flex flex-col leading-tight">
+                <span className="text-base md:text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
                   SWARNANDHRA
                 </span>
-                <span className="text-xs font-semibold text-gray-600 tracking-wide">
+                <span className="text-[11px] md:text-xs font-semibold text-gray-700 tracking-wide">
                   COLLEGE OF ENGINEERING & TECHNOLOGY
                 </span>
-                <span className="text-xs font-medium text-purple-600">
+                <span className="text-[10px] md:text-xs font-medium text-purple-700">
                   (AUTONOMOUS)
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 text-white">
+            <nav className="hidden lg:flex items-center gap-1 text-gray-900">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.url || '#'}
-                  className="relative px-4 py-2 text-white/90 hover:text-white font-semibold text-sm transition-colors group"
+                  className="relative px-4 py-2 text-gray-800 hover:text-gray-900 font-semibold text-sm transition-colors group"
                 >
                   <span className="relative z-10">{item.label}</span>
-                  <div className="absolute inset-0 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-black/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </Link>
               ))}
-              <div className="relative ml-4">
-                <div className="apply-now-bg absolute -inset-1 md:-inset-2"></div>
-                <Link
-                  to="/admissions"
-                  className="relative z-10 px-6 py-2 btn-theme rounded-full font-bold text-sm hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  Apply Now
-                </Link>
-              </div>
+              <Link
+                to="/admissions"
+                className="ml-4 px-6 py-2 btn-theme rounded-full font-bold text-sm hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Apply Now
+              </Link>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -219,15 +218,12 @@ export default function PublicLayout() {
                     {item.label}
                   </Link>
                 ))}
-                <div className="relative mx-4 mt-4">
-                  <div className="apply-now-bg absolute -inset-1"></div>
-                  <Link
-                    to="/admissions"
-                    className="relative z-10 px-6 py-3 btn-theme text-white rounded-full font-semibold text-center hover:shadow-lg transition-all"
-                  >
-                    Apply Now
-                  </Link>
-                </div>
+                <Link
+                  to="/admissions"
+                  className="mx-4 mt-4 px-6 py-3 btn-theme text-white rounded-full font-semibold text-center hover:shadow-lg transition-all"
+                >
+                  Apply Now
+                </Link>
               </nav>
             </div>
           )}
