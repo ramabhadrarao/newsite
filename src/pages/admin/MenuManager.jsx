@@ -43,16 +43,14 @@ export default function MenuManager() {
 
   const createMenuItemMutation = useMutation({
     mutationFn: async (itemData) => {
-      const { error } = await supabase.from('menu_items').insert([itemData]);
-      if (error) throw error;
+      await api.post('/menu-items', itemData);
     },
     onSuccess: () => queryClient.invalidateQueries(['menu-items']),
   });
 
   const updateMenuItemMutation = useMutation({
     mutationFn: async ({ id, ...data }) => {
-      const { error } = await supabase.from('menu_items').update(data).eq('id', id);
-      if (error) throw error;
+      await api.put(`/menu-items/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['menu-items']);
@@ -62,8 +60,7 @@ export default function MenuManager() {
 
   const deleteMenuItemMutation = useMutation({
     mutationFn: async (id) => {
-      const { error } = await supabase.from('menu_items').delete().eq('id', id);
-      if (error) throw error;
+      await api.delete(`/menu-items/${id}`);
     },
     onSuccess: () => queryClient.invalidateQueries(['menu-items']),
   });
