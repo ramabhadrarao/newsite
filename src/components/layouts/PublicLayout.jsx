@@ -385,22 +385,24 @@ export default function PublicLayout() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="relative border-t border-gray-200 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden">
+          <div className="relative border-t border-white/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden">
             {/* White brand strip background behind bottom bar */}
             <span className="absolute inset-0 brand-strip-bg-white" aria-hidden="true"></span>
 
             {/* Content */}
-            <p className="relative z-10 text-sm text-gray-700">
+            <p className="relative z-10 text-sm text-gray-800 px-4 py-3">
               © {new Date().getFullYear()} Swarnandhra College of Engineering and Technology. All rights reserved.
             </p>
-            <div className="relative z-10 flex items-center gap-6">
-              <Link to="/privacy-policy" className="text-sm text-gray-700 hover:text-gray-900 transition-colors">
+            <div className="relative z-10 flex items-center gap-2 sm:gap-4 px-4 py-2">
+              <Link to="/privacy-policy" className="text-sm text-gray-800 hover:text-gray-900 hover:underline underline-offset-4 transition-colors px-2 py-1 rounded-md">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-sm text-gray-700 hover:text-gray-900 transition-colors">
+              <span className="hidden sm:inline text-gray-400">•</span>
+              <Link to="/terms" className="text-sm text-gray-800 hover:text-gray-900 hover:underline underline-offset-4 transition-colors px-2 py-1 rounded-md">
                 Terms & Conditions
               </Link>
-              <Link to="/sitemap" className="text-sm text-gray-700 hover:text-gray-900 transition-colors">
+              <span className="hidden sm:inline text-gray-400">•</span>
+              <Link to="/sitemap" className="text-sm text-gray-800 hover:text-gray-900 hover:underline underline-offset-4 transition-colors px-2 py-1 rounded-md">
                 Sitemap
               </Link>
             </div>

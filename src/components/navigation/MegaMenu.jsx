@@ -122,7 +122,7 @@ export default function MegaMenu() {
 
   return (
     <div
-      className="sticky top-20 z-40 border-b border-gray-200 bg-white backdrop-blur-md supports-[backdrop-filter]:bg-white shadow-md"
+      className="sticky top-20 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90 shadow-md"
       onMouseLeave={() => setActive(null)}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,8 +137,10 @@ export default function MegaMenu() {
                   onMouseEnter={() => setActive(c.key)}
                   onFocus={() => setActive(c.key)}
                   aria-expanded={isActive}
-                  className={`relative group h-10 px-3 text-sm font-medium rounded-md transition-all duration-200 ${
-                    isActive ? 'text-gray-900 bg-black/5' : 'text-gray-800 hover:text-gray-900 hover:bg-black/5'
+                  className={`relative group h-10 px-4 text-sm font-medium rounded-md transition-all duration-200 ${
+                    isActive
+                      ? 'text-gray-900 bg-gradient-to-r from-blue-50 to-purple-50'
+                      : 'text-gray-800 hover:text-gray-900 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50'
                   }`}
                 >
                   {c.label}
@@ -178,7 +180,7 @@ export default function MegaMenu() {
 
       {/* Panels */}
       {active && (
-        <div className="absolute inset-x-0 top-full bg-white border-t border-gray-200 shadow-2xl ring-1 ring-black/5 rounded-b-xl">
+        <div className="absolute inset-x-0 top-full bg-gradient-to-r from-blue-50 via-white to-purple-50 border-t border-gray-200 shadow-2xl ring-1 ring-black/5 rounded-b-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {/* Panel header for category context */}
             <div className="mb-3">
@@ -186,7 +188,7 @@ export default function MegaMenu() {
             </div>
             <div className="grid gap-6">
               {/* Links grid */}
-              <div className="[&>a]:px-2 [&>a]:py-1 [&>a]:rounded-md [&>a]:text-sm [&>a]:text-gray-800 [&>a:hover]:text-gray-900 [&>a:hover]:bg-blue-50">
+              <div className="[&>a]:px-2 [&>a]:py-1 [&>a]:rounded-md [&>a]:text-sm [&>a]:text-gray-800 [&>a]:transition-colors [&>a]:duration-150 [&>a:hover]:text-gray-900 [&>a:hover]:bg-gradient-to-r [&>a:hover]:from-blue-100 [&>a:hover]:to-purple-100">
                 {panel(active)}
               </div>
             </div>
