@@ -107,7 +107,7 @@ export default function PublicLayout() {
                 />
               </div>
               <div className="hidden md:flex flex-col">
-                <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+                <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
                   SWARNANDHRA
                 </span>
                 <span className="text-xs font-semibold text-gray-600 tracking-wide">
@@ -167,7 +167,7 @@ export default function PublicLayout() {
                 ))}
                 <Link
                   to="/admissions"
-                  className="mx-4 mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-center hover:shadow-lg transition-all"
+                  className="mx-4 mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold text-center hover:shadow-lg transition-all"
                 >
                   Apply Now
                 </Link>
@@ -193,7 +193,7 @@ export default function PublicLayout() {
                 alt="Logo"
                 className="h-16 mb-4"
               />
-              <h3 className="text-xl font-bold mb-4">
+              <h3 className="text-lg font-semibold mb-4">
                 Swarnandhra College of Engineering and Technology
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
@@ -217,7 +217,7 @@ export default function PublicLayout() {
 
             {/* Quick Links Column */}
             <div>
-              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-base font-semibold mb-6 flex items-center gap-2">
                 <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full"></div>
                 Quick Links
               </h3>
@@ -245,7 +245,7 @@ export default function PublicLayout() {
 
             {/* Important Links Column */}
             <div>
-              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-base font-semibold mb-6 flex items-center gap-2">
                 <div className="w-1 h-6 bg-gradient-to-b from-purple-400 to-pink-400 rounded-full"></div>
                 Important Links
               </h3>
@@ -273,7 +273,7 @@ export default function PublicLayout() {
 
             {/* Contact Column */}
             <div>
-              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-base font-semibold mb-6 flex items-center gap-2">
                 <div className="w-1 h-6 bg-gradient-to-b from-pink-400 to-red-400 rounded-full"></div>
                 Contact Us
               </h3>

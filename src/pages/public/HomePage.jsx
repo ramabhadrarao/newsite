@@ -39,14 +39,14 @@ export default function HomePage() {
             <span className="text-sm font-medium text-white">NAAC A+ Accredited | Autonomous Institution</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
             Shape Your
             <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text animate-gradient">
               Future Today
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             Where innovation meets excellence. Join India's leading autonomous engineering college 
             and transform your dreams into reality.
           </p>
@@ -77,7 +77,7 @@ export default function HomePage() {
             ].map((stat, idx) => (
               <div key={idx} className="p-6 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
                 <stat.icon className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-                <div className="text-3xl font-bold text-white mb-1">{stat.label}</div>
+                <div className="text-2xl font-semibold text-white mb-1">{stat.label}</div>
                 <div className="text-sm text-gray-400">{stat.sublabel}</div>
               </div>
             ))}
@@ -96,10 +96,10 @@ export default function HomePage() {
       <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
               Latest Updates
             </h2>
-            <p className="text-xl text-gray-600">Stay connected with campus happenings</p>
+            <p className="text-base md:text-lg text-gray-600">Stay connected with campus happenings</p>
           </div>
           
           <NewsMarquee />
@@ -110,10 +110,10 @@ export default function HomePage() {
       <section className="py-20 bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4">
               Premier Programs
             </h2>
-            <p className="text-xl text-purple-200">Industry-aligned curriculum for tomorrow's leaders</p>
+            <p className="text-base md:text-lg text-purple-200">Industry-aligned curriculum for tomorrow's leaders</p>
           </div>
           
           <ProgramsShowcase />
@@ -124,10 +124,10 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
               Academic Excellence
             </h2>
-            <p className="text-xl text-gray-600">World-class departments driving innovation</p>
+            <p className="text-base md:text-lg text-gray-600">World-class departments driving innovation</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -256,8 +256,8 @@ export default function HomePage() {
                 <div className={`inline-flex p-6 rounded-2xl bg-gradient-to-br ${feature.color} mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110`}>
                   <feature.icon className="w-12 h-12 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-sm md:text-base text-gray-600">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -268,7 +268,7 @@ export default function HomePage() {
       <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-2xl md:text-3xl font-semibold mb-6">
             Ready to Start Your Journey?
           </h2>
           <p className="text-xl mb-8 text-blue-100">
