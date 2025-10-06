@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { api } from '../../lib/api';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function HomePage() {
   const { data: sections } = useQuery({
@@ -18,33 +18,41 @@ export default function HomePage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-br from-primary-900 to-primary-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Welcome to Swarnandhra College
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-primary-100">
-              Shaping Future Engineers & Technologists
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                to="/admissions"
-                className="inline-flex items-center px-6 py-3 bg-white text-primary-900 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
-              >
-                Apply Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link
-                to="/about"
-                className="inline-flex items-center px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-900 transition-colors"
-              >
-                Learn More
-              </Link>
+      {useMemo(() => {
+        const heroSection = sections?.find((s) => s.type === 'hero');
+        if (heroSection) {
+          return <HeroSlider section={heroSection} />;
+        }
+        return (
+          <section className="bg-gradient-to-br from-primary-900 to-primary-700 text-white py-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                  Welcome to Swarnandhra College
+                </h1>
+                <p className="text-xl md:text-2xl mb-8 text-primary-100">
+                  Shaping Future Engineers & Technologists
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Link
+                    to="/admissions"
+                    className="inline-flex items-center px-6 py-3 bg-white text-primary-900 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+                  >
+                    Apply Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="inline-flex items-center px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-900 transition-colors"
+                  >
+                    Learn More
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        );
+      }, [sections])}
 
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -130,5 +138,104 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+function HeroSlider({ section }) {
+  const content = section?.content || {};
+  const videoUrl = content.videoUrl || '/img/data/video.mp4';
+  const slides = Array.isArray(content.slides) ? content.slides : [];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!slides.length) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, content.intervalMs || 5000);
+    return () => clearInterval(timer);
+  }, [slides.length, content.intervalMs]);
+
+  const current = slides[index] || {};
+
+  const goPrev = () => setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+  const goNext = () => setIndex((prev) => (prev + 1) % slides.length);
+
+  return (
+    <section className="relative h-[60vh] md:h-[80vh] overflow-hidden">
+      <video
+        src={videoUrl}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
+
+      <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center">
+        <div className="text-white max-w-3xl">
+          {current.badge && (
+            <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold rounded-full bg-white/20 backdrop-blur">
+              {current.badge}
+            </span>
+          )}
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+            {current.title || 'Welcome to Swarnandhra College'}
+          </h1>
+          {current.subtitle && (
+            <p className="text-lg md:text-2xl text-primary-100 mb-8">{current.subtitle}</p>
+          )}
+          <div className="flex flex-wrap gap-3">
+            {current.ctaLink && (
+              <Link
+                to={current.ctaLink}
+                className="inline-flex items-center px-6 py-3 bg-white text-primary-900 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+              >
+                {current.ctaText || 'Apply Now'}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            )}
+            {current.secondaryLink && (
+              <Link
+                to={current.secondaryLink}
+                className="inline-flex items-center px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-900 transition-colors"
+              >
+                {current.secondaryText || 'Learn More'}
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {slides.length > 1 && (
+        <div className="absolute inset-x-0 bottom-6 z-10 flex items-center justify-center gap-4">
+          <button
+            aria-label="Previous"
+            onClick={goPrev}
+            className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <div className="flex items-center gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className={`h-2 w-2 rounded-full ${i === index ? 'bg-white' : 'bg-white/40'}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button
+            aria-label="Next"
+            onClick={goNext}
+            className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+    </section>
   );
 }

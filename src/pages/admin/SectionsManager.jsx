@@ -178,6 +178,7 @@ export default function SectionsManager() {
                   <option value="cards">Cards</option>
                   <option value="list">List</option>
                   <option value="html">HTML</option>
+                  <option value="hero">Hero</option>
                   <option value="custom">Custom</option>
                 </select>
               </div>
