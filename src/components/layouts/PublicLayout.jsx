@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube, ExternalLink } from 'lucide-react';
 import { api } from '../../lib/api';
 
 export default function PublicLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
 
   const { data: settings } = useQuery({
     queryKey: ['settings'],
@@ -22,14 +36,12 @@ export default function PublicLayout() {
     queryKey: ['menu', 'main-menu'],
     queryFn: async () => {
       const menu = await api.get('/menus?name=main-menu');
-
       if (!menu) return [];
       const items = await api.get(`/menu-items?menu_id=${menu.id}&parent_id=null`);
       return items || [];
     },
   });
 
-  // Fallback default menu when no main-menu is configured yet
   const defaultMenu = [
     { id: 'default-1', label: 'Home', url: '/' },
     { id: 'default-2', label: 'About', url: '/about' },
@@ -41,66 +53,96 @@ export default function PublicLayout() {
 
   const navItems = (menuItems && menuItems.length > 0) ? menuItems : defaultMenu;
 
-  // Rich footer quick links inspired by the existing site
-  const footerQuickLinks = [
-    { label: 'Examination Results', url: '/examinations' },
-    { label: 'IQAC', url: '/iqac' },
-    { label: 'NIRF', url: '/nirf' },
-    { label: 'NAAC SSR', url: '/naac-ssr' },
-    { label: 'NBA Report', url: '/nba' },
-    { label: 'AICTE-IDEA Lab', url: '/aicte-idea-lab' },
-    { label: 'Alumni', url: '/alumni' },
-    { label: 'Web Mail', url: '/webmail' },
-    { label: 'Grievance', url: '/grievance' },
-    { label: 'Contact', url: '/contact' },
-    { label: 'News & Gallery', url: '/gallery' },
-  ];
-
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <header className="bg-white shadow-md sticky top-0 z-50">
-        <div className="bg-primary-900 text-white py-2 px-4">
-          <div className="max-w-7xl mx-auto text-sm text-center">
-            {settings?.site_tagline || 'Autonomous - Affiliated to JNTUK, Kakinada, Approved by AICTE'}
+    <div className="min-h-screen flex flex-col">
+      {/* Top Bar */}
+      <div className="bg-gradient-to-r from-blue-950 via-purple-950 to-indigo-950 text-white py-2 px-4 text-sm">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-6">
+            <a href="tel:+91-1234567890" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+              <Phone className="w-3 h-3" />
+              <span className="hidden sm:inline">+91-1234567890</span>
+            </a>
+            <a href="mailto:info@swarnandhra.ac.in" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+              <Mail className="w-3 h-3" />
+              <span className="hidden sm:inline">info@swarnandhra.ac.in</span>
+            </a>
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-blue-300 transition-colors">
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="#" className="hover:text-blue-300 transition-colors">
+              <Twitter className="w-4 h-4" />
+            </a>
+            <a href="#" className="hover:text-blue-300 transition-colors">
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a href="#" className="hover:text-blue-300 transition-colors">
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a href="#" className="hover:text-blue-300 transition-colors">
+              <Youtube className="w-4 h-4" />
+            </a>
           </div>
         </div>
+      </div>
 
+      {/* Main Header */}
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-lg shadow-lg' 
+          : 'bg-white'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <Link to="/" className="flex items-center space-x-4">
-              <img
-                src="/img/logo/swrnlogo.png"
-                alt="Logo"
-                className="h-16 w-auto"
-              />
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-gray-900 leading-tight">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-4 group">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                <img
+                  src="/img/logo/swrnlogo.png"
+                  alt="Logo"
+                  className="relative h-14 w-auto transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+              <div className="hidden md:flex flex-col">
+                <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
                   SWARNANDHRA
                 </span>
-                <span className="text-xs text-gray-600 leading-tight">
-                  COLLEGE OF ENGINEERING AND TECHNOLOGY
+                <span className="text-xs font-semibold text-gray-600 tracking-wide">
+                  COLLEGE OF ENGINEERING & TECHNOLOGY
                 </span>
-                <span className="text-xs text-gray-500 leading-tight">
+                <span className="text-xs font-medium text-purple-600">
                   (AUTONOMOUS)
                 </span>
               </div>
             </Link>
 
-            <nav className="hidden md:flex space-x-6">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.url || '#'}
-                  className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+                  className="relative px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold text-sm transition-colors group"
                 >
-                  {item.label}
+                  <span className="relative z-10">{item.label}</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </Link>
               ))}
+              <Link
+                to="/admissions"
+                className="ml-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-sm hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105"
+              >
+                Apply Now
+              </Link>
             </nav>
 
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
               {mobileMenuOpen ? (
                 <X className="h-6 w-6 text-gray-700" />
@@ -110,76 +152,201 @@ export default function PublicLayout() {
             </button>
           </div>
 
+          {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t">
+            <div className="lg:hidden py-4 border-t animate-fade-in">
               <nav className="flex flex-col space-y-2">
                 {navItems.map((item) => (
                   <Link
                     key={item.id}
                     to={item.url || '#'}
-                    className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
-                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600 rounded-lg font-semibold transition-colors"
                   >
                     {item.label}
                   </Link>
                 ))}
+                <Link
+                  to="/admissions"
+                  className="mx-4 mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-center hover:shadow-lg transition-all"
+                >
+                  Apply Now
+                </Link>
               </nav>
             </div>
           )}
         </div>
       </header>
 
+      {/* Main Content */}
       <main className="flex-1">
         <Outlet />
       </main>
 
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Footer */}
+      <footer className="bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            {/* About Column */}
             <div>
-              <h3 className="text-lg font-bold mb-4">
+              <img
+                src="/img/logo/swrnlogo.png"
+                alt="Logo"
+                className="h-16 mb-4"
+              />
+              <h3 className="text-xl font-bold mb-4">
                 Swarnandhra College of Engineering and Technology
               </h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-400 text-sm leading-relaxed mb-4">
                 {settings?.site_address || 'Narsapur, Andhra Pradesh 534280, India'}
               </p>
+              <div className="flex items-center gap-3">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                  <Instagram className="w-4 h-4" />
+                </a>
+              </div>
             </div>
 
+            {/* Quick Links Column */}
             <div>
-              <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                {footerQuickLinks.map((item, idx) => (
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full"></div>
+                Quick Links
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  { label: 'About Us', url: '/about' },
+                  { label: 'Admissions', url: '/admissions' },
+                  { label: 'Departments', url: '/departments' },
+                  { label: 'Placements', url: '/placements' },
+                  { label: 'Research', url: '/research' },
+                  { label: 'Alumni', url: '/alumni' },
+                ].map((link, idx) => (
                   <li key={idx}>
                     <Link
-                      to={item.url || '#'}
-                      className="text-gray-400 hover:text-white transition-colors"
+                      to={link.url}
+                      className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
                     >
-                      {item.label || item.title || item}
+                      <span className="w-1.5 h-1.5 bg-blue-400 rounded-full group-hover:bg-purple-400 transition-colors"></span>
+                      {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
+            {/* Important Links Column */}
             <div>
-              <h3 className="text-lg font-bold mb-4">Accreditations</h3>
-              <div className="flex space-x-4">
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                <div className="w-1 h-6 bg-gradient-to-b from-purple-400 to-pink-400 rounded-full"></div>
+                Important Links
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  { label: 'NAAC', url: '/naac' },
+                  { label: 'NBA', url: '/nba' },
+                  { label: 'NIRF', url: '/nirf' },
+                  { label: 'IQAC', url: '/iqac' },
+                  { label: 'Examination Results', url: '/results' },
+                  { label: 'Grievance Portal', url: '/grievance' },
+                ].map((link, idx) => (
+                  <li key={idx}>
+                    <Link
+                      to={link.url}
+                      className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+                    >
+                      <ExternalLink className="w-3 h-3 group-hover:text-purple-400" />
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Column */}
+            <div>
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                <div className="w-1 h-6 bg-gradient-to-b from-pink-400 to-red-400 rounded-full"></div>
+                Contact Us
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0 mt-1" />
+                  <span className="text-gray-400 text-sm">
+                    Narsapur, West Godavari District<br />
+                    Andhra Pradesh - 534280, India
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-purple-400" />
+                  <a href="tel:+91-1234567890" className="text-gray-400 hover:text-white transition-colors text-sm">
+                    +91-1234567890
+                  </a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-pink-400" />
+                  <a href="mailto:info@swarnandhra.ac.in" className="text-gray-400 hover:text-white transition-colors text-sm">
+                    info@swarnandhra.ac.in
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Accreditation Logos */}
+          <div className="border-t border-white/10 pt-8 mb-8">
+            <div className="flex flex-wrap items-center justify-center gap-8">
+              <div className="text-center">
                 <img
                   src="/img/footer/naac-a_grade-logo-B_W.png"
-                  alt="NAAC A Grade"
-                  className="h-12"
+                  alt="NAAC A+ Grade"
+                  className="h-16 mx-auto mb-2 opacity-80 hover:opacity-100 transition-opacity"
                 />
+                <p className="text-xs text-gray-400">NAAC A+ Accredited</p>
+              </div>
+              <div className="text-center">
                 <img
                   src="/img/footer/nba-logo-white.png"
                   alt="NBA"
-                  className="h-12"
+                  className="h-16 mx-auto mb-2 opacity-80 hover:opacity-100 transition-opacity"
                 />
+                <p className="text-xs text-gray-400">NBA Approved</p>
+              </div>
+              <div className="text-center">
+                <img
+                  src="/img/footer/jntuk-logo-White.png"
+                  alt="JNTUK"
+                  className="h-16 mx-auto mb-2 opacity-80 hover:opacity-100 transition-opacity"
+                />
+                <p className="text-xs text-gray-400">Affiliated to JNTUK</p>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
-            © {new Date().getFullYear()} Swarnandhra College of Engineering and Technology. All rights reserved.
+          {/* Bottom Bar */}
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-gray-400">
+              © {new Date().getFullYear()} Swarnandhra College of Engineering and Technology. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link to="/privacy-policy" className="text-sm text-gray-400 hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="/terms" className="text-sm text-gray-400 hover:text-white transition-colors">
+                Terms & Conditions
+              </Link>
+              <Link to="/sitemap" className="text-sm text-gray-400 hover:text-white transition-colors">
+                Sitemap
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
