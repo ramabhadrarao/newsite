@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { Plus, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Plus, CreditCard as Edit, Trash2, Eye, EyeOff } from 'lucide-react';
 
 export default function PagesManager() {
   const queryClient = useQueryClient();

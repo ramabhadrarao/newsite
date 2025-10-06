@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { FileText, Menu, Layout, Image } from 'lucide-react';
+import { FileText, Menu, LayoutGrid as Layout, Image } from 'lucide-react';
 
 export default function Dashboard() {
   const { data: stats } = useQuery({

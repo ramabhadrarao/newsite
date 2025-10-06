@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../stores/authStore';
-import {
-  LayoutDashboard,
-  FileText,
-  Menu as MenuIcon,
-  Layout,
-  Image,
-  Settings,
-  LogOut,
-  X,
-} from 'lucide-react';
+import { LayoutDashboard, FileText, Menu as MenuIcon, LayoutGrid as Layout, Image, Settings, LogOut, X } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },

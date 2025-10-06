@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../lib/supabase';
-import { Plus, Edit, Trash2, GripVertical, ChevronRight } from 'lucide-react';
+import { Plus, CreditCard as Edit, Trash2, GripVertical, ChevronRight } from 'lucide-react';
 
 export default function MenuManager() {
   const [selectedMenu, setSelectedMenu] = useState(null);
