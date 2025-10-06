@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Menu, X, ChevronDown, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube, ExternalLink } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube, ExternalLink, Palette } from 'lucide-react';
 import { api } from '../../lib/api';
 
 export default function PublicLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState('indigo');
   const location = useLocation();
 
   useEffect(() => {
@@ -16,6 +17,19 @@ export default function PublicLayout() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('site-theme');
+    const initial = saved || 'indigo';
+    setTheme(initial);
+    document.documentElement.setAttribute('data-theme', initial);
+  }, []);
+
+  const applyTheme = (name) => {
+    setTheme(name);
+    document.documentElement.setAttribute('data-theme', name);
+    localStorage.setItem('site-theme', name);
+  };
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -56,7 +70,7 @@ export default function PublicLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Top Bar */}
-      <div className="bg-gradient-to-r from-blue-950 via-purple-950 to-indigo-950 text-white py-2 px-4 text-sm">
+      <div className="bg-theme-gradient text-white py-2 px-4 text-sm">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <a href="tel:+91-1234567890" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
@@ -84,16 +98,53 @@ export default function PublicLayout() {
             <a href="#" className="hover:text-blue-300 transition-colors">
               <Youtube className="w-4 h-4" />
             </a>
+            {/* Theme Palette Selector */}
+            <div className="hidden sm:flex items-center gap-2">
+              <Palette className="w-4 h-4 opacity-80" />
+              {[
+                { name: 'indigo', colors: ['#0b1b4f','#3b0f6f','#9a1a8a'] },
+                { name: 'emerald', colors: ['#064e3b','#0f766e','#14b8a6'] },
+                { name: 'sunset', colors: ['#7c2d12','#b91c1c','#f97316'] },
+                { name: 'ocean', colors: ['#0c4a6e','#0369a1','#06b6d4'] },
+              ].map((p) => (
+                <button
+                  key={p.name}
+                  onClick={() => applyTheme(p.name)}
+                  aria-label={`Switch to ${p.name} theme`}
+                  className={`w-6 h-6 rounded-full border-2 ${theme===p.name ? 'border-white' : 'border-white/50'} overflow-hidden shadow hover:scale-110 transition-transform`}
+                  style={{
+                    backgroundImage: `linear-gradient(135deg, ${p.colors[0]}, ${p.colors[1]}, ${p.colors[2]})`
+                  }}
+                />
+              ))}
+            </div>
+            {/* Mobile palette toggle */}
+            <div className="sm:hidden">
+              <div className="flex items-center gap-1">
+                {[
+                  { name: 'indigo', colors: ['#0b1b4f','#3b0f6f','#9a1a8a'] },
+                  { name: 'emerald', colors: ['#064e3b','#0f766e','#14b8a6'] },
+                  { name: 'sunset', colors: ['#7c2d12','#b91c1c','#f97316'] },
+                  { name: 'ocean', colors: ['#0c4a6e','#0369a1','#06b6d4'] },
+                ].map((p) => (
+                  <button
+                    key={`m-${p.name}`}
+                    onClick={() => applyTheme(p.name)}
+                    aria-label={`Switch to ${p.name} theme`}
+                    className={`w-5 h-5 rounded-full border ${theme===p.name ? 'border-white' : 'border-white/50'} overflow-hidden shadow`}
+                    style={{
+                      backgroundImage: `linear-gradient(135deg, ${p.colors[0]}, ${p.colors[1]}, ${p.colors[2]})`
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Header */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg' 
-          : 'bg-white'
-      }`}>
+      <header className={`sticky top-0 z-50 bg-theme-gradient transition-all duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
@@ -120,23 +171,26 @@ export default function PublicLayout() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1 text-white">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.url || '#'}
-                  className="relative px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold text-sm transition-colors group"
+                  className="relative px-4 py-2 text-white/90 hover:text-white font-semibold text-sm transition-colors group"
                 >
                   <span className="relative z-10">{item.label}</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </Link>
               ))}
-              <Link
-                to="/admissions"
-                className="ml-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-sm hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105"
-              >
-                Apply Now
-              </Link>
+              <div className="relative ml-4">
+                <div className="apply-now-bg absolute -inset-1 md:-inset-2"></div>
+                <Link
+                  to="/admissions"
+                  className="relative z-10 px-6 py-2 btn-theme rounded-full font-bold text-sm hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  Apply Now
+                </Link>
+              </div>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -160,17 +214,20 @@ export default function PublicLayout() {
                   <Link
                     key={item.id}
                     to={item.url || '#'}
-                    className="px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600 rounded-lg font-semibold transition-colors"
+                    className="px-4 py-3 text-gray-900 rounded-lg font-semibold transition-colors bg-white/80 hover:bg-white"
                   >
                     {item.label}
                   </Link>
                 ))}
-                <Link
-                  to="/admissions"
-                  className="mx-4 mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold text-center hover:shadow-lg transition-all"
-                >
-                  Apply Now
-                </Link>
+                <div className="relative mx-4 mt-4">
+                  <div className="apply-now-bg absolute -inset-1"></div>
+                  <Link
+                    to="/admissions"
+                    className="relative z-10 px-6 py-3 btn-theme text-white rounded-full font-semibold text-center hover:shadow-lg transition-all"
+                  >
+                    Apply Now
+                  </Link>
+                </div>
               </nav>
             </div>
           )}
@@ -183,7 +240,7 @@ export default function PublicLayout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 text-white">
+      <footer className="bg-theme-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             {/* About Column */}

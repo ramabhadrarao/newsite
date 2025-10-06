@@ -17,10 +17,21 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
+      {/* Top Latest News Bar (above Hero) */}
+      <TopNewsBar />
       {/* Hero Section with Advanced Gradients */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950">
-        {/* Animated Background Gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.3),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(168,85,247,0.3),transparent_50%)]"></div>
+      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden bg-theme-gradient">
+        {/* Background Video */}
+        <video
+          src="/img/data/video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {/* Gradient Overlay over Video for legibility */}
+        <div className="absolute inset-0 bg-theme-overlay"></div>
         
         {/* Grid Pattern Overlay */}
         <div className="absolute inset-0 opacity-10" style={{
@@ -54,7 +65,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-4 mb-16">
             <Link
               to="/admissions"
-              className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-full font-bold text-lg shadow-2xl shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+              className="group px-8 py-4 btn-theme text-white rounded-full font-bold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
             >
               Apply Now
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -67,21 +78,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {[
-              { icon: Users, label: '10,000+', sublabel: 'Students' },
-              { icon: GraduationCap, label: '95%', sublabel: 'Placement Rate' },
-              { icon: Award, label: '50+', sublabel: 'Awards' },
-              { icon: Globe, label: '100+', sublabel: 'Global Partners' }
-            ].map((stat, idx) => (
-              <div key={idx} className="p-6 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
-                <stat.icon className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-                <div className="text-2xl font-semibold text-white mb-1">{stat.label}</div>
-                <div className="text-sm text-gray-400">{stat.sublabel}</div>
-              </div>
-            ))}
-          </div>
+          {/* Stats moved to Key Highlights section below */}
         </div>
 
         {/* Scroll Indicator */}
@@ -92,31 +89,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* News & Updates Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      {/* Key Highlights Section (Students, Placement Rate, Awards, Global Partners) */}
+      <section className="py-14 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-              Latest Updates
-            </h2>
-            <p className="text-base md:text-lg text-gray-600">Stay connected with campus happenings</p>
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">Key Highlights</h2>
+            <p className="text-base md:text-lg text-gray-600">A quick snapshot of our scale and success</p>
           </div>
-          
-          <NewsMarquee />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: Users, label: '10,000+', sublabel: 'Students' },
+              { icon: GraduationCap, label: '95%', sublabel: 'Placement Rate' },
+              { icon: Award, label: '50+', sublabel: 'Awards' },
+              { icon: Globe, label: '100+', sublabel: 'Global Partners' }
+            ].map((stat, idx) => (
+              <div key={idx} className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <stat.icon className="w-8 h-8 text-blue-600 mx-auto mb-3" />
+                <div className="text-xl font-semibold text-gray-900 mb-1 text-center">{stat.label}</div>
+                <div className="text-sm text-gray-600 text-center">{stat.sublabel}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Featured Programs */}
-      <section className="py-20 bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-hidden">
+      {/* Featured Programmes (from reference) */}
+      <section className="py-20 bg-theme-gradient text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4">
-              Premier Programs
-            </h2>
-            <p className="text-base md:text-lg text-purple-200">Industry-aligned curriculum for tomorrow's leaders</p>
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4">Our Featured Programmes</h2>
+            <p className="text-base md:text-lg text-purple-200">UG and PG Degree Courses including MCA & MBA</p>
           </div>
           
-          <ProgramsShowcase />
+          <FeaturedProgramsRef />
         </div>
       </section>
 
@@ -205,7 +210,7 @@ export default function HomePage() {
       </section>
 
       {/* Campus Facilities */}
-      <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 text-white">
+      <section className="py-20 bg-theme-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -249,7 +254,7 @@ export default function HomePage() {
             {[
               { icon: Award, title: 'NAAC A+ Grade', description: 'Highest accreditation standard', color: 'from-yellow-500 to-orange-500' },
               { icon: Target, title: 'NBA Approved', description: 'Quality education assured', color: 'from-blue-500 to-cyan-500' },
-              { icon: Users, title: '100+ Faculty', description: 'Experienced & dedicated', color: 'from-purple-500 to-pink-500' },
+              { icon: Users, title: '300+ Faculty', description: 'Experienced & dedicated', color: 'from-purple-500 to-pink-500' },
               { icon: TrendingUp, title: 'Top Placements', description: 'Leading companies recruit', color: 'from-green-500 to-teal-500' },
             ].map((feature, index) => (
               <div key={index} className="text-center group">
@@ -265,7 +270,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden">
+      <section className="py-20 bg-theme-gradient text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl font-semibold mb-6">
@@ -319,6 +324,35 @@ function NewsMarquee() {
   );
 }
 
+function TopNewsBar() {
+  const news = [
+    'Admissions Open for 2025-26 Academic Year',
+    'Campus Placements Reach All-Time High - 95% Placement Rate',
+    'International Conference on AI & ML - March 2025',
+    'Students Win National Hackathon Championship',
+    'NAAC A+ Grade Accreditation Renewed',
+  ];
+
+  return (
+    <section className="relative z-20 bg-theme-gradient text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-4 py-2">
+          <div className="flex-shrink-0 px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-semibold">Latest News</div>
+          <div className="flex-1 overflow-hidden">
+            <div className="animate-marquee whitespace-nowrap">
+              {[...news, ...news].map((item, idx) => (
+                <span key={idx} className="inline-block mx-6 text-white/90 text-xs md:text-sm">
+                  • {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProgramsShowcase() {
   const programs = [
     { name: 'AI & Machine Learning', icon: '🤖', color: 'from-blue-500 to-cyan-500' },
@@ -345,6 +379,88 @@ function ProgramsShowcase() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function FeaturedProgramsRef() {
+  const bcaPrograms = [
+    { title: 'BCA-Bachelor of Computer Applications', icon: '/img/our-features/Computer-Science-icon.svg' },
+    { title: 'BBA-Bachelor of Business Administration', icon: '/img/our-features/business-information-reporting-svgrepo-com.svg' },
+    { title: 'BMS -  Bachelor of Management Studies', icon: '/img/our-features/business systems.svg' },
+  ];
+
+  const btechPrograms = [
+    { title: 'Computer Science & Engineering', icon: '/img/our-features/Computer-Science-icon.svg' },
+    { title: 'Information Technology', icon: '/img/our-features/electronics-and-communication-icon.svg' },
+    { title: 'Artificial intelligence and Machine Learning', icon: '/img/our-features/ai-svgrepo-com.svg' },
+    { title: 'Robotics', icon: '/img/our-features/robotics-svgrepo-com.svg' },
+    { title: 'Computer Science and Engineering (Data Science)', icon: '/img/our-features/affiliate-affiliation-affilitate-svgrepo-com.svg' },
+    { title: 'Artificial Intelligence (Al) and Data Science', icon: '/img/our-features/ai-ml-icon.svg' },
+    { title: 'Computer Science and Engineering (Cyber Security)', icon: '/img/our-features/advanced-cyber-engineering-svgrepo-com.svg' },
+    { title: 'Computer Science and Engineering and Business Systems', icon: '/img/our-features/business systems.svg' },
+    { title: 'Mechanical Engineering', icon: '/img/our-features/mechanical-icon.svg' },
+    { title: 'Civil Engineering', icon: '/img/our-features/forklift-lifting-svgrepo-com.svg' },
+    { title: 'Electrical & Electronics Engineering', icon: '/img/our-features/electrical-and-electronics-icon.svg' },
+    { title: 'Electronics and Communication Engineering', icon: '/img/our-features/computer_networking-icon.svg' },
+  ];
+
+  const pgPrograms = [
+    { title: 'Computer Science & Engineering', icon: '/img/our-features/Computer-Science-icon.svg' },
+    { title: 'Power Electronics and Systems', icon: '/img/our-features/electronics-and-communication-icon.svg' },
+    { title: 'CAD/CAM', icon: '/img/our-features/mechanical-icon.svg' },
+    { title: 'Structural Engineering', icon: '/img/our-features/forklift-lifting-svgrepo-com.svg' },
+    { title: 'Communication Systems', icon: '/img/our-features/electrical-and-electronics-icon.svg' },
+    { title: 'Thermal Engineering', icon: '/img/our-features/noun-thermal-engineering-5268792.svg' },
+    { title: 'VLSI System Design', icon: '/img/our-features/chip-microchip-svgrepo-com.svg' },
+    { title: 'Master of Business Administration (MBA)', icon: '/img/our-features/business-information-reporting-svgrepo-com.svg' },
+    { title: 'Masters in Computer Applications (MCA)', icon: '/img/our-features/binary-code-loading-symbol-svgrepo-com.svg' },
+  ];
+
+  const ItemCard = ({ title, icon }) => (
+    <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-white/10 transition-colors">
+      <img src={icon} alt={title} className="w-10 h-10 object-contain" />
+      <p className="text-sm md:text-base font-medium text-white/90">{title}</p>
+    </div>
+  );
+
+  return (
+    <div className="space-y-14">
+      {/* UG PROGRAMME - BCA ,BBA,BMS (3 Years) */}
+      <div>
+        <div className="text-center mb-6">
+          <h4 className="text-xl md:text-2xl font-semibold">UG PROGRAMME - BCA , BBA , BMS <span className="text-white/70">(3 Years)</span></h4>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {bcaPrograms.map((p, i) => (
+            <ItemCard key={i} title={p.title} icon={p.icon} />
+          ))}
+        </div>
+      </div>
+
+      {/* UG PROGRAMME - B.TECH (4 Years) */}
+      <div>
+        <div className="text-center mb-6">
+          <h4 className="text-xl md:text-2xl font-semibold">UG PROGRAMME - B.TECH <span className="text-white/70">(4 Years)</span></h4>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {btechPrograms.map((p, i) => (
+            <ItemCard key={i} title={p.title} icon={p.icon} />
+          ))}
+        </div>
+      </div>
+
+      {/* PG PROGRAMME - M.TECH/MBA/MCA (2 Years) */}
+      <div>
+        <div className="text-center mb-6">
+          <h4 className="text-xl md:text-2xl font-semibold">PG PROGRAMME - M.TECH / MBA / MCA <span className="text-white/70">(2 Years)</span></h4>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {pgPrograms.map((p, i) => (
+            <ItemCard key={i} title={p.title} icon={p.icon} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
